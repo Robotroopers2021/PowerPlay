@@ -32,6 +32,9 @@ open class KTeleOp() : KOpMode(photonEnabled = false) {
 
     private fun scheduleDrive() {
         robot.drive.defaultCommand = object : Cmd() {
+            init {
+                addRequirements(robot.drive)
+            }
             override fun execute() {
                 val xScalar: Double
                 val yScalar: Double
