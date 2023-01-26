@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.koawalib.subsystems
+package teamcode.v1.subsystems
 
 import com.asiankoala.koawalib.hardware.servo.KServo
-import com.asiankoala.koawalib.subsystem.Subsystem
+import com.asiankoala.koawalib.subsystem.KSubsystem
 
-class Lights(val servo : KServo) : Subsystem() {
+class Lights(val servo : KServo) : KSubsystem() {
     enum class BlinkinPattern {
         /*
          * Fixed Palette Pattern

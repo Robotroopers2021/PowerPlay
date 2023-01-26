@@ -3,32 +3,25 @@ package teamcode.v1.opmodes
 import com.asiankoala.koawalib.command.KOpMode
 import com.asiankoala.koawalib.command.commands.Cmd
 import com.asiankoala.koawalib.command.commands.InstantCmd
-import com.asiankoala.koawalib.command.commands.LoopCmd
-import com.asiankoala.koawalib.control.filter.SlewRateLimiter
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
-import com.asiankoala.koawalib.math.NVector
-import com.asiankoala.koawalib.subsystem.odometry.Odometry
+import com.asiankoala.koawalib.math.Pose
+import com.asiankoala.koawalib.math.radians
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import teamcode.v1.Robot
 import teamcode.v1.commands.sequences.DepositSequence
 import teamcode.v1.commands.sequences.HomeSequence
 import teamcode.v1.commands.subsystems.ClawCmds
-import teamcode.v1.commands.subsystems.GuideCmds
+import teamcode.v1.commands.subsystems.DriveCmd
 import teamcode.v1.constants.ArmConstants
-import teamcode.v1.constants.ClawConstants
 import teamcode.v1.constants.GuideConstants
 import teamcode.v1.constants.LiftConstants
-import teamcode.v1.STATES
-import kotlin.math.max
-import kotlin.math.pow
-import kotlin.math.sign
+
 
 @TeleOp
 open class KTeleOp() : KOpMode(photonEnabled = false) {
-    private val robot by lazy { Robot(Odometry.lastPose) }
+    private val robot by lazy { Robot(Pose(-66.0, 40.0, 180.0.radians)) }
     private var slowMode = false
-    private var state = STATES.INTAKE
 
     override fun mInit() {
         Logger.config = LoggerConfig.DASHBOARD_CONFIG
@@ -39,40 +32,27 @@ open class KTeleOp() : KOpMode(photonEnabled = false) {
 
     private fun scheduleDrive() {
         robot.drive.defaultCommand = object : Cmd() {
-            val fastScalars = NVector(0.9, 0.9, 0.75)
-            val slowScalars = NVector(0.4, 0.4, 0.4)
-            val scalars get() = if(slowMode) slowScalars else fastScalars
-
-            val slowRate = SlewRateLimiter(0.5)
-            val fastRate = SlewRateLimiter(0.7)
-            val rate get() = if(state == STATES.INTAKE) slowRate else fastRate
-
-            private fun joystickFunction(s: Double, k: Double, x: Double): Double {
-                return max(0.0, s * x * (k * x.pow(3) - k + 1)) * x.sign
-            }
-
             override fun execute() {
-                val raws = NVector(
-                    driver.leftStick.xSupplier.invoke(),
-                    -driver.leftStick.ySupplier.invoke(),
-                    -driver.rightStick.xSupplier.invoke()
+                val xScalar: Double
+                val yScalar: Double
+                val rScalar: Double
+                if (driver.a.isPressed) {
+                    xScalar = 0.4
+                    yScalar = 0.4
+                    rScalar = 0.4
+                } else {
+                    xScalar = 1.0
+                    yScalar = 1.0
+                    rScalar = 0.75
+                }
+                val drivePowers = Pose(
+                    driver.leftStick.xAxis * xScalar,
+                    driver.leftStick.yInverted.yAxis * yScalar,
+                    driver.rightStick.xInverted.xAxis * rScalar
                 )
-
-                driver.leftStick.setXRateLimiter(rate)
-                driver.leftStick.setYRateLimiter(rate)
-                driver.rightStick.setXRateLimiter(rate)
-
-                robot.drive.powers = raws
-                    .mapIndexed { i, d -> joystickFunction(scalars[i], 1.0, d) }
-                    .asPose
-            }
-
-            init {
-                addRequirements(robot.drive)
+                robot.drive.powers = drivePowers
             }
         }
-
-        driver.a.onPress(InstantCmd({ slowMode = !slowMode }))
     }
 
     private fun scheduleCycling() {
