@@ -99,7 +99,8 @@ class Hardware(startPose: Pose) {
         leftEncoder,
         rightEncoder,
         auxEncoder,
-        OdoConstants.TRACK_WIDTH,
+        80.0 / 25.4,
+        -90.0 / 25.4,
         OdoConstants.PERP_TRACKER,
         startPose
     )
