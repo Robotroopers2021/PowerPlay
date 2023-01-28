@@ -20,12 +20,12 @@ import teamcode.v1.constants.LiftConstants
 @TeleOp
 open class KTeleOp() : KOpMode(photonEnabled = true) {
     private val robot by lazy { Robot(Pose(0.0, 0.0, 0.0.radians)) }
-    private var slowMode = false
 
     override fun mInit() {
         Logger.config = LoggerConfig.DASHBOARD_CONFIG
         scheduleDrive()
         scheduleCycling()
+        scheduleConfig()
 //        scheduleTest()
     }
 
@@ -55,6 +55,12 @@ open class KTeleOp() : KOpMode(photonEnabled = true) {
                 robot.drive.powers = drivePowers
             }
         }
+    }
+
+    private fun scheduleConfig() {
+        driver.leftStick.setXRateLimiter(5.0)
+        driver.leftStick.setYRateLimiter(5.0)
+        driver.rightStick.setXRateLimiter(5.0)
     }
 
     private fun scheduleCycling() {
