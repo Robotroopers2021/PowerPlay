@@ -99,11 +99,11 @@ class Hardware(startPose: Pose) {
         leftEncoder,
         rightEncoder,
         auxEncoder,
-        80.0 / 25.4,
-        -90.0 / 25.4,
+        OdoConstants.TRACK_WIDTH,
         OdoConstants.PERP_TRACKER,
         startPose
     )
+
 
     @Config
     companion object {
