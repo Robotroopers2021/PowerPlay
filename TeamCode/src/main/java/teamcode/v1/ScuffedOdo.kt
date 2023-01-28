@@ -4,7 +4,7 @@ import com.asiankoala.koawalib.hardware.motor.KEncoder
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.subsystem.odometry.Odometry
-import org.firstinspires.ftc.teamcode.koawalib.constants.OdoConstants
+import teamcode.v1.constants.OdoConstants
 import kotlin.math.absoluteValue
 
 class ScuffedOdo(

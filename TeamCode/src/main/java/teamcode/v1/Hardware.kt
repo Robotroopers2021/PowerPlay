@@ -9,8 +9,7 @@ import com.asiankoala.koawalib.hardware.motor.MotorFactory
 import com.asiankoala.koawalib.hardware.servo.KServo
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.subsystem.odometry.KThreeWheelOdometry
-import org.firstinspires.ftc.teamcode.koawalib.constants.OdoConstants
-import teamcode.v1.auto.AutoHardware
+import teamcode.v1.constants.OdoConstants
 import teamcode.v1.constants.ArmConstants
 import teamcode.v1.constants.ClawConstants
 import teamcode.v1.constants.GuideConstants
@@ -99,7 +98,8 @@ class Hardware(startPose: Pose) {
         leftEncoder,
         rightEncoder,
         auxEncoder,
-        OdoConstants.TRACK_WIDTH,
+        OdoConstants.LEFT_OFFSET * OdoConstants.TRACK_WIDTH_MULTIPLIER / 24,
+        OdoConstants.RIGHT_OFFSET * OdoConstants.TRACK_WIDTH_MULTIPLIER / 24,
         OdoConstants.PERP_TRACKER,
         startPose
     )
