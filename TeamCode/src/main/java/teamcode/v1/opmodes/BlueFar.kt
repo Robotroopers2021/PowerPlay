@@ -5,6 +5,7 @@ import com.asiankoala.koawalib.command.group.SequentialGroup
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
 import com.asiankoala.koawalib.math.Pose
+import com.asiankoala.koawalib.math.angleWrap
 import com.asiankoala.koawalib.math.radians
 import com.asiankoala.koawalib.path.*
 import com.asiankoala.koawalib.path.gvf.SimpleGVFController
@@ -94,7 +95,7 @@ class BlueFar : AutoOpMode() {
             InstantCmd({robot.lift.setPos(7.0)}),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 5.0, 10.0),
+                SimpleGVFController(path1, robot.drive, 0.6, 20.0, 10.0, 0.5, 3.0, 5.0),
                 ProjQuery(
                     DepositSequence(robot.lift, robot.arm, robot.claw, robot.guide, 145.0, LiftConstants.highPos, GuideConstants.depositPos),
                     0.5
@@ -105,7 +106,7 @@ class BlueFar : AutoOpMode() {
             HomeSequence(robot.lift, robot.claw, robot.arm, robot.guide, ArmConstants.intervalPos, ArmConstants.groundPos, 5.0, GuideConstants.telePos),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(intakePath, robot.drive, 0.6, 20.0, 8.0, 0.4, 5.0, 10.0)
+                SimpleGVFController(intakePath, robot.drive, 0.6, 20.0, 8.0, 0.4, 3.0, 5.0)
             ),
             WaitCmd(0.25),
             ClawCmds.ClawCloseCmd(robot.claw),
@@ -115,7 +116,7 @@ class BlueFar : AutoOpMode() {
             WaitCmd(0.25),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 5.0, 10.0),
+                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 3.0, 5.0),
                 ProjQuery(
                     DepositSequence(robot.lift, robot.arm, robot.claw, robot.guide, 155.0, LiftConstants.highPos, GuideConstants.depositPos),
                     0.5
@@ -127,7 +128,7 @@ class BlueFar : AutoOpMode() {
             HomeSequence(robot.lift, robot.claw, robot.arm, robot.guide, ArmConstants.intervalPos, ArmConstants.groundPos, 4.0, GuideConstants.telePos),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(intakePath2, robot.drive, 0.6, 25.0, 8.0, 0.4, 5.0, 10.0)
+                SimpleGVFController(intakePath2, robot.drive, 0.6, 25.0, 8.0, 0.4, 3.0, 5.0)
             ),
             WaitCmd(0.25),
             ClawCmds.ClawCloseCmd(robot.claw),
@@ -137,7 +138,7 @@ class BlueFar : AutoOpMode() {
             WaitCmd(0.25),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 5.0, 10.0),
+                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 3.0, 5.0),
                 ProjQuery(
                     DepositSequence(robot.lift, robot.arm, robot.claw, robot.guide, 155.0, LiftConstants.highPos, GuideConstants.depositPos),
                     0.5
@@ -149,7 +150,7 @@ class BlueFar : AutoOpMode() {
             HomeSequence(robot.lift, robot.claw, robot.arm, robot.guide, ArmConstants.intervalPos, ArmConstants.groundPos, 3.0, GuideConstants.telePos),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(intakePath2, robot.drive, 0.6, 25.0, 8.0, 0.4, 5.0, 10.0)
+                SimpleGVFController(intakePath2, robot.drive, 0.6, 25.0, 8.0, 0.4, 3.0, 5.0)
             ),
             WaitCmd(0.25),
             ClawCmds.ClawCloseCmd(robot.claw),
@@ -159,7 +160,7 @@ class BlueFar : AutoOpMode() {
             WaitCmd(0.25),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 5.0, 10.0),
+                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 3.0, 5.0),
                 ProjQuery(
                     DepositSequence(robot.lift, robot.arm, robot.claw, robot.guide, 155.0, LiftConstants.highPos, GuideConstants.depositPos),
                     0.5
@@ -171,7 +172,7 @@ class BlueFar : AutoOpMode() {
             HomeSequence(robot.lift, robot.claw, robot.arm, robot.guide, ArmConstants.intervalPos, ArmConstants.groundPos, 1.0, GuideConstants.telePos),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(intakePath2, robot.drive, 0.6, 25.0, 8.0, 0.4, 5.0, 10.0)
+                SimpleGVFController(intakePath2, robot.drive, 0.6, 25.0, 8.0, 0.4, 3.0, 5.0)
             ),
             WaitCmd(0.25),
             ClawCmds.ClawCloseCmd(robot.claw),
@@ -181,7 +182,7 @@ class BlueFar : AutoOpMode() {
             WaitCmd(0.25),
             GVFCmd(
                 robot.drive,
-                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 5.0, 10.0),
+                SimpleGVFController(depositPath, robot.drive, 0.6, 20.0, 15.0, 0.5, 3.0, 5.0),
                 ProjQuery(
                     DepositSequence(robot.lift, robot.arm, robot.claw, robot.guide, 155.0, LiftConstants.highPos, GuideConstants.depositPos),
                     0.5
@@ -193,11 +194,11 @@ class BlueFar : AutoOpMode() {
             HomeSequence(robot.lift, robot.claw, robot.arm, robot.guide, ArmConstants.intervalPos, ArmConstants.groundPos, 0.0, GuideConstants.telePos),
             ChooseCmd(
                 GVFCmd(robot.drive,
-                    SimpleGVFController(rightPath, robot.drive, 0.5, 30.0, 6.0, 0.6, 5.0, 10.0)),
+                    SimpleGVFController(rightPath, robot.drive, 0.5, 30.0, 6.0, 0.6, 3.0, 5.0)),
                 ChooseCmd(
                     GVFCmd(robot.drive,
-                        SimpleGVFController(middlePath, robot.drive, 0.5, 30.0, 6.0, 0.6, 5.0, 10.0)),
-                    GVFCmd(robot.drive, SimpleGVFController(leftPath, robot.drive, 0.5, 30.0, 6.0, 0.6, 5.0, 10.0)),
+                        SimpleGVFController(middlePath, robot.drive, 0.5, 30.0, 6.0, 0.6, 3.0, 5.0)),
+                    GVFCmd(robot.drive, SimpleGVFController(leftPath, robot.drive, 0.5, 30.0, 6.0, 0.6, 3.0, 5.0)),
                 ) { tagOfInterest!!.id == MIDDLE },
             ) { tagOfInterest!!.id == RIGHT }
         )

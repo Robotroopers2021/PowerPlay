@@ -96,8 +96,7 @@ class AutoHardware(startPose: Pose) {
         leftEncoder,
         rightEncoder,
         auxEncoder,
-        OdoConstants.LEFT_OFFSET * OdoConstants.TRACK_WIDTH_MULTIPLIER,
-        OdoConstants.RIGHT_OFFSET * OdoConstants.TRACK_WIDTH_MULTIPLIER,
+        OdoConstants.TRACK_WIDTH / 25.4,
         OdoConstants.PERP_TRACKER,
         startPose
     )

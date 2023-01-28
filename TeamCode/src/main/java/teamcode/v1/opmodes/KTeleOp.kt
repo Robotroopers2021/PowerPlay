@@ -12,15 +12,14 @@ import teamcode.v1.Robot
 import teamcode.v1.commands.sequences.DepositSequence
 import teamcode.v1.commands.sequences.HomeSequence
 import teamcode.v1.commands.subsystems.ClawCmds
-import teamcode.v1.commands.subsystems.DriveCmd
 import teamcode.v1.constants.ArmConstants
 import teamcode.v1.constants.GuideConstants
 import teamcode.v1.constants.LiftConstants
 
 
 @TeleOp
-open class KTeleOp() : KOpMode(photonEnabled = false) {
-    private val robot by lazy { Robot(Pose(-66.0, 40.0, 180.0.radians)) }
+open class KTeleOp() : KOpMode(photonEnabled = true) {
+    private val robot by lazy { Robot(Pose(0.0, 0.0, 0.0.radians)) }
     private var slowMode = false
 
     override fun mInit() {

@@ -83,10 +83,10 @@ class Hardware(startPose: Pose) {
     val limitSwitch = KLimitSwitch("LimitSwitch")
 
     private val leftEncoder = EncoderFactory(Hardware.ticksPerUnit)
-        .reverse
         .revEncoder
         .build(fl)
     private val rightEncoder = EncoderFactory(Hardware.ticksPerUnit)
+        .reverse
         .revEncoder
         .build(bl)
     private val auxEncoder = EncoderFactory(Hardware.ticksPerUnit)
@@ -98,8 +98,7 @@ class Hardware(startPose: Pose) {
         leftEncoder,
         rightEncoder,
         auxEncoder,
-        OdoConstants.LEFT_OFFSET * OdoConstants.TRACK_WIDTH_MULTIPLIER / 24,
-        OdoConstants.RIGHT_OFFSET * OdoConstants.TRACK_WIDTH_MULTIPLIER / 24,
+        OdoConstants.TRACK_WIDTH / 25.4,
         OdoConstants.PERP_TRACKER,
         startPose
     )
