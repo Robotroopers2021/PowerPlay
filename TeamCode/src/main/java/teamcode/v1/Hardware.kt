@@ -9,11 +9,7 @@ import com.asiankoala.koawalib.hardware.motor.MotorFactory
 import com.asiankoala.koawalib.hardware.servo.KServo
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.subsystem.odometry.KThreeWheelOdometry
-import teamcode.v1.constants.OdoConstants
-import teamcode.v1.constants.ArmConstants
-import teamcode.v1.constants.ClawConstants
-import teamcode.v1.constants.GuideConstants
-import teamcode.v1.constants.LiftConstants
+import teamcode.v1.constants.*
 import teamcode.v1.subsystems.KLimitSwitch
 
 class Hardware(startPose: Pose) {
@@ -70,7 +66,6 @@ class Hardware(startPose: Pose) {
             FFGains(kS = ArmConstants.kS, kV = ArmConstants.kV, kA = ArmConstants.kA, kCos = ArmConstants.kCos),
             MotionConstraints(ArmConstants.maxVel, ArmConstants.maxAccel, ArmConstants.maxDeccel),
             allowedPositionError = ArmConstants.allowedPositionError,
-            disabledPosition = ArmConstants.disabledPosition
         )
         .build()
 
@@ -79,6 +74,9 @@ class Hardware(startPose: Pose) {
 
     val guideServo = KServo("Guide")
         .startAt(GuideConstants.telePos)
+
+    val whackerServo = KServo("Whacker")
+            .startAt(WhackerConstants.leftPos)
 
     val limitSwitch = KLimitSwitch("LimitSwitch")
 
@@ -101,7 +99,6 @@ class Hardware(startPose: Pose) {
         OdoConstants.PERP_TRACKER,
         startPose
     )
-
 
     @Config
     companion object {
