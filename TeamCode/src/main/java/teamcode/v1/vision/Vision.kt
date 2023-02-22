@@ -1,11 +1,10 @@
 package teamcode.v1.vision
 
-import com.asiankoala.koawalib.subsystem.Subsystem
+import com.asiankoala.koawalib.subsystem.KSubsystem
 import com.asiankoala.koawalib.subsystem.vision.KWebcam
 import org.openftc.easyopencv.OpenCvCameraRotation
-import teamcode.v1.vision.SleevePipeline
 
-class Vision: Subsystem() {
+class Vision: KSubsystem() {
     private val pipeline = SleevePipeline()
     private val webcam = KWebcam(
         "webcam",

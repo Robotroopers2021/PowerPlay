@@ -10,7 +10,6 @@ import com.asiankoala.koawalib.hardware.servo.KServo
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.subsystem.odometry.KThreeWheelOdometry
 import teamcode.v1.constants.*
-import teamcode.v1.subsystems.KLimitSwitch
 
 class Hardware(startPose: Pose) {
     val fl = MotorFactory("fl")
@@ -75,11 +74,6 @@ class Hardware(startPose: Pose) {
     val guideServo = KServo("Guide")
         .startAt(GuideConstants.telePos)
 
-    val whackerServo = KServo("Whacker")
-            .startAt(WhackerConstants.leftPos)
-
-    val limitSwitch = KLimitSwitch("LimitSwitch")
-
     private val leftEncoder = EncoderFactory(Hardware.ticksPerUnit)
         .revEncoder
         .build(fl)
@@ -95,7 +89,8 @@ class Hardware(startPose: Pose) {
         leftEncoder,
         rightEncoder,
         auxEncoder,
-        OdoConstants.TRACK_WIDTH / 25.4,
+        (OdoConstants.TRACK_WIDTH / 25.4)/ 2.0,
+        -(OdoConstants.TRACK_WIDTH / 25.4)/ 2.0,
         OdoConstants.PERP_TRACKER,
         startPose
     )

@@ -17,15 +17,10 @@ class Robot(startPose: Pose) {
         true
     )
 
-    val arm = Arm(hardware.armMotor, hardware.limitSwitch)
+    val arm = Arm(hardware.armMotor)
     val claw = Claw(hardware.clawServo)
     val guide = Guide(hardware.guideServo)
-    val whacker = Whacker(hardware.whackerServo)
     val lift = Lift(hardware.liftLeadMotor, hardware.liftSecondMotor)
-
-    var isStacking = false
-    var stack = 5
-    val stackHeight get() = (stack - 1) - 0.5
 
     init {
         arm.setPos(ArmConstants.groundPos)
