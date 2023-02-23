@@ -36,44 +36,44 @@ class MidLeft : KOpMode() {
 
     private val intakePath1 = HermitePath(
         TangentHeadingController(),
-        Pose(-11.5, 32.5, 120.0.radians),
+        Pose(-11.0, 32.0, 120.0.radians),
         Pose(-13.5, 60.5, 90.0.radians)
     )
 
     private val intakePath2 = HermitePath(
         TangentHeadingController(),
-        Pose(-15.0, 31.5, 90.0.radians),
+        Pose(-15.0, 32.0, 90.0.radians),
         Pose(-12.5, 60.5, 90.0.radians)
     )
 
     private val intakePath3 = HermitePath(
         TangentHeadingController(),
-        Pose(-15.0, 31.5, 90.0.radians),
+        Pose(-15.0, 32.0, 90.0.radians),
         Pose(-11.5, 60.5, 90.0.radians)
     )
 
     private val depositPath = HermitePath(
         TangentHeadingController().flip(),
-        Pose(-14.0, 59.0, 270.0.radians),
+        Pose(-14.0, 60.5, 270.0.radians),
         Pose(-14.0, 53.0, 270.0.radians),
         Pose(-24.5, 34.0, 210.0.radians)
     )
 
     private val leftPath = HermitePath(
         TangentHeadingController(),
-        Pose(-15.0, 31.5, 90.0.radians),
+        Pose(-15.0, 32.0, 90.0.radians),
         Pose(-12.5, 58.0, 90.0.radians)
     )
 
     private val middlePath = HermitePath(
         TangentHeadingController().flip(),
-        Pose(-12.5, 58.5, 270.0.radians),
+        Pose(-12.5, 58.0, 270.0.radians),
         Pose(-14.0, 37.0, 270.0.radians),
     )
 
     private val rightPath = HermitePath(
         TangentHeadingController().flip(),
-        Pose(-12.5, 58.5, 270.0.radians),
+        Pose(-12.5, 58.0, 270.0.radians),
         Pose(-14.0, 14.5, 270.0.radians)
 
     )
