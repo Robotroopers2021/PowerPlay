@@ -21,6 +21,7 @@ class Robot(startPose: Pose) {
     val claw = Claw(hardware.clawServo)
     val guide = Guide(hardware.guideServo)
     val lift = Lift(hardware.liftLeadMotor, hardware.liftSecondMotor)
+    val switch = LimitSwitch(hardware.switch)
 
     init {
         arm.setPos(ArmConstants.groundPos)

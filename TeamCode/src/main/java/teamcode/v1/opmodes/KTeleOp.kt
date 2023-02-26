@@ -12,6 +12,7 @@ import teamcode.v1.Robot
 import teamcode.v1.commands.sequences.DepositSequence
 import teamcode.v1.commands.sequences.HomeSequence
 import teamcode.v1.commands.subsystems.ClawCmds
+import teamcode.v1.commands.subsystems.DriveCmd
 import teamcode.v1.constants.*
 
 @TeleOp
@@ -27,12 +28,7 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
     }
 
     private fun scheduleDrive() {
-        robot.drive.defaultCommand = MecanumCmd(
-            robot.drive,
-            driver.leftStick.yInverted,
-            driver.rightStick.xInverted,
-            Pose(1.0,1.0,0.75)
-        )
+        DriveCmd(robot.drive,driver.leftStick,driver.rightStick)
             }
 
     private fun scheduleCycling() {
@@ -65,5 +61,6 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
         Logger.put("lift pos", robot.hardware.liftLeadMotor.pos)
         Logger.put("arm power", robot.arm.motor.power)
         Logger.put("lift power", robot.hardware.liftLeadMotor.power)
+        Logger.put("switch", robot.hardware.switch.invoke())
     }
 }

@@ -42,7 +42,5 @@ class TestAuto : KOpMode() {
         scheduleDrive()
 
         Logger.config = LoggerConfig.DASHBOARD_CONFIG
-
-        driver.a.onPress(LoopCmd)
     }
     }
