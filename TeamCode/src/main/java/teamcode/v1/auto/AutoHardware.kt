@@ -32,27 +32,6 @@ class AutoHardware(startPose: Pose) {
         .brake
         .build()
 
-    val liftLeadMotor = MotorFactory("liftLead")
-        .float
-        .reverse
-        .createEncoder(EncoderFactory(LiftConstants.ticksPerUnit)
-            .zero(LiftConstants.homePos)
-            .reverse
-        )
-        .withMotionProfileControl(
-            PIDGains(LiftConstants.kP, LiftConstants.kI, LiftConstants.kD),
-            FFGains(kS = LiftConstants.kS, kV = LiftConstants.kV, kA = LiftConstants.kA, kG = LiftConstants.kG),
-            MotionConstraints(LiftConstants.maxVel, LiftConstants.maxAccel),
-            allowedPositionError = LiftConstants.allowedPositionError,
-            disabledPosition = LiftConstants.disabledPosition
-        )
-        .build()
-
-    val liftSecondMotor = MotorFactory("lift2")
-        .reverse
-        .float
-        .build()
-
     val armMotor = MotorFactory("Arm")
         .reverse
         .float

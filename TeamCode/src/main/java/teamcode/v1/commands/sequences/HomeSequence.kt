@@ -22,6 +22,7 @@ class HomeSequence(
         InstantCmd({robot.arm.setPos(secondArmAngle)})),
         InstantCmd({robot.guide.setPos(GripPos)}),
     InstantCmd({robot.lift.setPos(liftHeight)}),
+    InstantCmd(robot.lift::startAttemptingZero),
     ClawCmds.ClawCloseCmd(robot.claw),
     )
 

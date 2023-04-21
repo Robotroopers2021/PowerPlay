@@ -58,9 +58,10 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
 
     override fun mLoop() {
         Logger.put("arm pos", robot.hardware.armMotor.pos)
-        Logger.put("lift pos", robot.hardware.liftLeadMotor.pos)
+        Logger.put("lift pos", robot.lift.liftLeadMotor.pos)
         Logger.put("arm power", robot.arm.motor.power)
-        Logger.put("lift power", robot.hardware.liftLeadMotor.power)
-        Logger.put("switch", robot.hardware.switch.invoke())
+        Logger.put("lift power", robot.lift.liftLeadMotor.power)
+        Logger.put("drive powers", robot.drive.powers)
+        Logger.put("switch", robot.lift.limit.invoke())
     }
 }

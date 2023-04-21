@@ -23,10 +23,7 @@ class AutoRobot(startPose: Pose) {
     val claw = Claw(hardware.clawServo)
     val guide = Guide(hardware.guideServo)
     val vision = Vision()
-    val lift = Lift(
-        hardware.liftLeadMotor,
-        hardware.liftSecondMotor
-    )
+    val lift = Lift()
 
     init {
         arm.setPos(ArmConstants.autoHomePos)
