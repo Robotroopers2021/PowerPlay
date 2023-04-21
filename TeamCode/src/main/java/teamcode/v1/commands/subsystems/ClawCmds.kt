@@ -13,7 +13,7 @@ import teamcode.v1.subsystems.Guide
 
 class ClawCmds {
     open class ClawCmd(claw: Claw, pos: Double) : InstantCmd({ claw.setPos(pos) }, claw)
-//bruh
+
     class ClawCloseCmd(claw: Claw) : ClawCmd(claw, ClawConstants.closePos)
 
 //    class ClawSmartCmd(claw: Claw) : SequentialGroup(
@@ -21,7 +21,7 @@ class ClawCmds {
 //        WaitUntilCmd { claw.lastRead < ClawConstants.distanceThreshold },
 //        ClawStopReadingCmd(claw),
 //        ClawCmd(claw, ClawConstants.closePos),
-//    )
+//    ) 
     class AutoOpenCmd(claw: Claw, guide : Guide, GripPos: Double) : SequentialGroup(
         ClawCmd(claw, ClawConstants.openPos),
         InstantCmd({guide.setPos(GripPos)})

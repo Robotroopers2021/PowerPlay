@@ -11,6 +11,7 @@ import com.asiankoala.koawalib.math.Vector
 import com.asiankoala.koawalib.math.radians
 import com.asiankoala.koawalib.path.*
 import com.asiankoala.koawalib.path.gvf.SimpleGVFController
+import com.asiankoala.koawalib.util.Clock
 import com.asiankoala.koawalib.util.OpModeState
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import teamcode.v1.auto.AutoRobot
@@ -27,6 +28,8 @@ class HighLeft : KOpMode() {
     private val startPose = Pose(-66.0, 40.0, 180.0.radians)
 
     private lateinit var mainCommand: Cmd
+
+    private lateinit var timer : Clock
 
     private val path1 = HermitePath(
         FLIPPED_HEADING_CONTROLLER,
