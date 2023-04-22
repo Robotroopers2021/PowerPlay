@@ -32,19 +32,23 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
             }
 
     private fun scheduleCycling() {
-        driver.rightBumper.onPress(HomeSequence(robot, ArmConstants.homePos, ArmConstants.groundPos, GuideConstants.telePos))
+        driver.rightBumper.onPress(HomeSequence(robot, ArmConstants.homePos, -20.0, GuideConstants.telePos))
         driver.leftBumper.onPress(DepositSequence(robot, ArmConstants.highPos, LiftConstants.highPos, GuideConstants.depositPos))
         driver.leftTrigger.onPress(ClawCmds.ClawCloseCmd(robot.claw))
         driver.dpadUp.onPress(DepositSequence(robot, ArmConstants.midPos, LiftConstants.midPos, GuideConstants.depositPos))
         driver.y.onPress(DepositSequence(robot, ArmConstants.lowPos, LiftConstants.lowPos, GuideConstants.lowPos))
+        driver.x.onPress(DepositSequence(robot, 200.0, LiftConstants.lowPos, 0.3))
         driver.rightTrigger.onPress(ClawCmds.ClawOpenCmd(robot.claw, robot.guide, GuideConstants.telePos))
-        driver.x.onPress(InstantCmd({robot.lift.setPos(3.0)}))
-        driver.b.onPress(InstantCmd({robot.lift.setPos(5.0)}))
+
 
         gunner.leftTrigger.onPress(InstantCmd({robot.lift.setPos(-15.5)}))
         gunner.rightTrigger.onPress(InstantCmd({robot.arm.setPos(-270.0)}))
         gunner.leftBumper.onPress(InstantCmd({robot.lift.setPos(11.0)}))
         gunner.rightBumper.onPress(InstantCmd({robot.lift.setPos(0.0)}))
+        gunner.b.onPress(InstantCmd({ robot.lift.setPos(2.25)}))
+        gunner.a.onPress(InstantCmd({ robot.lift.setPos(3.25)}))
+        gunner.x.onPress(InstantCmd({ robot.lift.setPos(4.5)}))
+        gunner.y.onPress(InstantCmd({ robot.lift.setPos(5.75)}))
     }
 
     private fun scheduleTest() {
@@ -61,7 +65,9 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
         Logger.put("lift pos", robot.lift.liftLeadMotor.pos)
         Logger.put("arm power", robot.arm.motor.power)
         Logger.put("lift power", robot.lift.liftLeadMotor.power)
-        Logger.put("drive powers", robot.drive.powers)
+        Logger.put("drive powers", driver.leftStick.xAxis)
         Logger.put("switch", robot.lift.limit.invoke())
+        Logger.put("dSensor", robot.guide.lastRead)
+        Logger.put("claw pos", robot.hardware.clawServo.position)
     }
 }

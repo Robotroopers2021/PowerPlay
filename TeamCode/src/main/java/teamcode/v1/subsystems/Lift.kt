@@ -32,7 +32,7 @@ class Lift() : KSubsystem() {
         )
         .build()
 
-    val liftSecondMotor = MotorFactory("lift2")
+    private val liftSecondMotor = MotorFactory("lift2")
         .float
         .build()
 
@@ -55,12 +55,6 @@ class Lift() : KSubsystem() {
             isAttemptingZero = false
             setPos(LiftConstants.groundPos)
             Logger.logInfo("zeroed")
-        }
-        else if(isAttemptingZero && !limit.invoke()) {
-            SequentialGroup(
-                WaitCmd(1.0),
-                InstantCmd({setPos(-15.5)})
-            )
         }
     }
 }
