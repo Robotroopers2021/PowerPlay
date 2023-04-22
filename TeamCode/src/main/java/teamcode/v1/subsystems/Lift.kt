@@ -1,5 +1,8 @@
 package teamcode.v1.subsystems
 
+import com.asiankoala.koawalib.command.commands.InstantCmd
+import com.asiankoala.koawalib.command.commands.WaitCmd
+import com.asiankoala.koawalib.command.group.SequentialGroup
 import com.asiankoala.koawalib.control.controller.PIDGains
 import com.asiankoala.koawalib.control.motor.FFGains
 import com.asiankoala.koawalib.control.profile.MotionConstraints
@@ -52,6 +55,12 @@ class Lift() : KSubsystem() {
             isAttemptingZero = false
             setPos(LiftConstants.groundPos)
             Logger.logInfo("zeroed")
+        }
+        else if(isAttemptingZero && !limit.invoke()) {
+            SequentialGroup(
+                WaitCmd(1.0),
+                InstantCmd({setPos(-15.5)})
+            )
         }
     }
 }
