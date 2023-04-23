@@ -2,7 +2,6 @@ package teamcode.v1.opmodes
 
 import com.asiankoala.koawalib.command.KOpMode
 import com.asiankoala.koawalib.command.commands.InstantCmd
-import com.asiankoala.koawalib.command.commands.MecanumCmd
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
 import com.asiankoala.koawalib.math.Pose
@@ -14,13 +13,15 @@ import teamcode.v1.commands.sequences.HomeSequence
 import teamcode.v1.commands.subsystems.ClawCmds
 import teamcode.v1.commands.subsystems.DriveCmd
 import teamcode.v1.constants.*
+import teamcode.v1.subsystems.Lights
+
 
 @TeleOp
 open class KTeleOp : KOpMode(photonEnabled = false) {
     private val robot by lazy { Robot(Pose(-66.0, 40.0, 180.0.radians)) }
 
     override fun mInit() {
-        InstantCmd({robot.lift.setPos(1.0)})
+//        robot.lights.setPattern(Lights.BlinkinPattern.RAINBOW_FOREST_PALETTE)
         Logger.config = LoggerConfig.DASHBOARD_CONFIG
         scheduleDrive()
         scheduleCycling()
@@ -28,7 +29,7 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
     }
 
     private fun scheduleDrive() {
-        DriveCmd(robot.drive,driver.leftStick,driver.rightStick)
+        robot.drive.defaultCommand = DriveCmd(robot.drive, driver)
             }
 
     private fun scheduleCycling() {

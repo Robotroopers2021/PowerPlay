@@ -10,6 +10,7 @@ import com.asiankoala.koawalib.math.radians
 import com.asiankoala.koawalib.path.ConstantHeadingPath
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import teamcode.v1.auto.AutoRobot
+import teamcode.v1.commands.subsystems.DriveCmd
 
 @TeleOp
 class TestAuto : KOpMode() {
@@ -30,12 +31,7 @@ class TestAuto : KOpMode() {
     )
 
     private fun scheduleDrive() {
-        robot.drive.defaultCommand = MecanumCmd(
-            robot.drive,
-            driver.leftStick.yInverted,
-            driver.rightStick.xInverted,
-            Pose(1.0,1.0,0.75)
-        )
+        robot.drive.defaultCommand = DriveCmd(robot.drive, driver)
     }
 
     override fun mInit() {

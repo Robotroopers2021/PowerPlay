@@ -58,6 +58,8 @@ class Hardware(startPose: Pose) {
     val guideServo = KServo("Guide")
         .startAt(GuideConstants.telePos)
 
+//    val lightsServo = KServo("lights")
+
     private val leftEncoder = EncoderFactory(ticksPerUnit)
         .revEncoder
         .build(fl)

@@ -21,6 +21,7 @@ class Robot(startPose: Pose) {
     val claw = Claw(hardware.clawServo)
     val guide = Guide(hardware.guideServo, hardware.distanceSensor, hardware.distanceSensor2)
     val lift = Lift()
+//    val lights = Lights(hardware.lightsServo)
 
     init {
         arm.setPos(ArmConstants.groundPos)
