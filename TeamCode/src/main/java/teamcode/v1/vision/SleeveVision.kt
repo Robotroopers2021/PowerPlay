@@ -4,7 +4,7 @@ import com.asiankoala.koawalib.subsystem.KSubsystem
 import com.asiankoala.koawalib.subsystem.vision.KWebcam
 import org.openftc.easyopencv.OpenCvCameraRotation
 
-class Vision: KSubsystem() {
+class SleeveVision: KSubsystem() {
     private val pipeline = SleevePipeline()
     private val webcam = KWebcam(
         "webcam",

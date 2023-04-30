@@ -5,7 +5,7 @@ import com.asiankoala.koawalib.subsystem.drive.KMecanumOdoDrive
 import teamcode.v1.constants.ArmConstants
 import teamcode.v1.constants.LiftConstants
 import teamcode.v1.subsystems.*
-import teamcode.v1.vision.Vision
+import teamcode.v1.vision.SleeveVision
 
 class AutoRobot(startPose: Pose) {
     private val hardware = AutoHardware(startPose)
@@ -22,7 +22,7 @@ class AutoRobot(startPose: Pose) {
     val arm = Arm(hardware.armMotor)
     val claw = Claw(hardware.clawServo)
     val guide = Guide(hardware.guideServo, hardware.distanceSensor, hardware.distanceSensor2)
-    val vision = Vision()
+    val vision = SleeveVision()
     val lift = Lift()
 
     init {
