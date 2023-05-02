@@ -7,6 +7,7 @@ import com.asiankoala.koawalib.logger.LoggerConfig
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.math.radians
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import org.opencv.core.Mat
 import teamcode.v1.Robot
 import teamcode.v1.commands.sequences.DepositSequence
 import teamcode.v1.commands.sequences.HomeSequence
@@ -19,6 +20,8 @@ import teamcode.v1.subsystems.Lights
 @TeleOp
 open class KTeleOp : KOpMode(photonEnabled = false) {
     private val robot by lazy { Robot(Pose(-66.0, 40.0, 180.0.radians)) }
+
+    var tvec = Mat()
 
     override fun mInit() {
 //        robot.lights.setPattern(Lights.BlinkinPattern.RAINBOW_FOREST_PALETTE)
@@ -62,6 +65,7 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
     }
 
     override fun mLoop() {
+        tvec = robot.vision.pose.tvec
         Logger.put("arm pos", robot.hardware.armMotor.pos)
         Logger.put("lift pos", robot.lift.liftLeadMotor.pos)
         Logger.put("arm power", robot.arm.motor.power)
@@ -70,5 +74,9 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
         Logger.put("switch", robot.lift.limit.invoke())
         Logger.put("dSensor", robot.guide.lastRead)
         Logger.put("claw pos", robot.hardware.clawServo.position)
+        if(tvec.empty() == false){
+            Logger.put("pole pose", tvec[0, 0][0])
+        }
+
     }
 }

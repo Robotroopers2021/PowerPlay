@@ -2,6 +2,7 @@ package teamcode.v1.vision
 
 import com.asiankoala.koawalib.subsystem.KSubsystem
 import com.asiankoala.koawalib.subsystem.vision.KWebcam
+import org.opencv.core.Mat
 import org.openftc.easyopencv.OpenCvCameraRotation
 
 class PoleVision : KSubsystem(){
@@ -25,6 +26,7 @@ class PoleVision : KSubsystem(){
 
     fun stop() {
         webcam.stopStreaming()
+        pose = Pose()
 //        pipeline.release()
     }
 }
