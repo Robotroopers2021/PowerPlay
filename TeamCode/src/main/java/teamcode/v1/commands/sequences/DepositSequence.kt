@@ -23,7 +23,7 @@ class DepositSequence(
     WaitCmd(0.1),
     InstantCmd({robot.guide.setPos(GripPos)}),
     InstantCmd(robot.vision::start),
-    WaitUntilCmd{(robot.vision.pose.tvec.empty() == false) && (robot.vision.pose.tvec[0, 0][0] < 3.0 && robot.vision.pose.tvec[0, 0][0] > 0)},
+    WaitUntilCmd{ !robot.vision.pose.tvec.empty() && (robot.vision.pose.tvec[0, 0][0] < 3.0 && robot.vision.pose.tvec[0, 0][0] > 0) },
     InstantCmd({robot.lift.setPos(LiftHeight-5)}),
     InstantCmd(robot.vision::stop)
 )
