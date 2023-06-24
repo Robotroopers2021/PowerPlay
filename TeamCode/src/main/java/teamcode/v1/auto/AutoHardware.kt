@@ -50,7 +50,6 @@ class AutoHardware(startPose: Pose) {
         .build()
 
     val distanceSensor = KDistanceSensor("dSensor")
-    val distanceSensor2 = KDistanceSensor("dSensor2")
 
     val clawServo = KServo("Claw")
         .startAt(ClawConstants.closePos)

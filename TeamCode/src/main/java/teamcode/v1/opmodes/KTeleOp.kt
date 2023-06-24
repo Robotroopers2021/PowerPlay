@@ -1,6 +1,7 @@
 package teamcode.v1.opmodes
 
 import com.asiankoala.koawalib.command.KOpMode
+import com.asiankoala.koawalib.command.commands.ChooseCmd
 import com.asiankoala.koawalib.command.commands.InstantCmd
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
@@ -42,7 +43,11 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
         driver.dpadUp.onPress(DepositSequence(robot, ArmConstants.midPos, LiftConstants.midPos, GuideConstants.depositPos))
         driver.y.onPress(DepositSequence(robot, ArmConstants.lowPos, LiftConstants.lowPos, GuideConstants.lowPos))
         driver.x.onPress(DepositSequence(robot, 200.0, LiftConstants.lowPos, 0.3))
-        driver.rightTrigger.onPress(ClawCmds.ClawOpenCmd(robot.claw, robot.guide, GuideConstants.telePos))
+        driver.rightTrigger.onPress(
+            ChooseCmd(ClawCmds.ClawOpenCmd(robot.claw, robot.guide, GuideConstants.telePos),
+                ClawCmds.ClawSmartCmd(robot.claw, robot.lift, robot.arm)
+            ) { robot.claw.count != 0 }
+        )
 
 
         gunner.leftTrigger.onPress(InstantCmd({robot.lift.setPos(-15.5)}))
@@ -72,11 +77,10 @@ open class KTeleOp : KOpMode(photonEnabled = false) {
         Logger.put("lift power", robot.lift.liftLeadMotor.power)
         Logger.put("drive powers", driver.leftStick.xAxis)
         Logger.put("switch", robot.lift.limit.invoke())
-        Logger.put("dSensor", robot.guide.lastRead)
+        Logger.put("dSensor", robot.claw.lastRead)
         Logger.put("claw pos", robot.hardware.clawServo.position)
-        if(tvec.empty() == false){
+        if(!tvec.empty()){
             Logger.put("pole pose", tvec[0, 0][0])
         }
-
     }
 }

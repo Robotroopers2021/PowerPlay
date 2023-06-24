@@ -4,6 +4,7 @@ import com.asiankoala.koawalib.command.commands.ChooseCmd
 import com.asiankoala.koawalib.command.commands.InstantCmd
 import com.asiankoala.koawalib.command.commands.WaitCmd
 import com.asiankoala.koawalib.command.commands.WaitUntilCmd
+import com.asiankoala.koawalib.command.group.ParallelGroup
 import com.asiankoala.koawalib.command.group.SequentialGroup
 import org.apache.commons.lang3.ObjectUtils.Null
 import teamcode.v1.Robot
@@ -16,7 +17,10 @@ class DepositSequence(
     LiftHeight : Double,
     GripPos : Double,
 ) : SequentialGroup(
+    ParallelGroup(
+    InstantCmd({robot.claw.countUp()}),
     ClawCmds.ClawCloseCmd(robot.claw),
+    ),
     InstantCmd({robot.arm.setPos(armAngle)}),
     WaitCmd(0.3),
     InstantCmd({robot.lift.setPos(LiftHeight)}),

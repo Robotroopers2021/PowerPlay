@@ -1,7 +1,9 @@
 package teamcode.v1
 
+import com.asiankoala.koawalib.command.commands.WatchdogCmd
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.subsystem.drive.KMecanumOdoDrive
+import teamcode.v1.commands.subsystems.ClawCmds
 import teamcode.v1.constants.ArmConstants
 import teamcode.v1.subsystems.*
 import teamcode.v1.vision.PoleVision
@@ -19,8 +21,8 @@ class Robot(startPose: Pose) {
     )
 
     val arm = Arm(hardware.armMotor)
-    val claw = Claw(hardware.clawServo)
-    val guide = Guide(hardware.guideServo, hardware.distanceSensor, hardware.distanceSensor2)
+    val claw = Claw(hardware.clawServo, hardware.distanceSensor)
+    val guide = Guide(hardware.guideServo)
     val lift = Lift()
 //    val lights = Lights(hardware.lightsServo)
 

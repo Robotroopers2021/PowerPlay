@@ -13,15 +13,18 @@ class HomeSequence(
     liftHeight : Double,
     GripPos : Double
 ) : SequentialGroup(
+    ClawCmds.ClawCloseCmd(robot.claw),
     InstantCmd({robot.guide.setPos(GripPos)}),
     InstantCmd({robot.arm.setPos(secondArmAngle)}, robot.arm),
-    ClawCmds.ClawCloseCmd(robot.claw),
     ParallelGroup(
         InstantCmd({robot.lift.setPos(liftHeight)}),
         InstantCmd(robot.lift::startAttemptingZero),
     ),
     WaitCmd(0.5),
-    ClawCmds.ClawOpenCmd(robot.claw, robot.guide, GuideConstants.telePos)
+    InstantCmd({robot.lift.setPos(1.0)}),
+    WaitCmd(0.8),
+    ClawCmds.ClawOpenCmd(robot.claw, robot.guide, GuideConstants.telePos),
+    ClawCmds.ClawSmartCmd(robot.claw, robot.lift, robot.arm)
 )
 
 
